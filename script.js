@@ -1,5 +1,15 @@
 document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 
+// Funzione di utilità per formattare la dimensione in modo leggibile (es. 1.2 MB)
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 // Funzione principale che si attiva al cambio del file
 function handleFileSelect(event) {
     const file = event.target.files[0];
@@ -7,6 +17,8 @@ function handleFileSelect(event) {
     // Reset dei risultati
     document.getElementById('fileName').textContent = 'Nessun file selezionato';
     document.getElementById('mimeType').textContent = 'N/A';
+    document.getElementById('fileSize').textContent = 'N/A'; // Reset Dimensione
+    document.getElementById('fileExtension').textContent = 'N/A'; // Reset Estensione
     document.getElementById('hashMd5').textContent = 'Calcolo...';
     document.getElementById('hashSha256').textContent = 'Calcolo...';
     
@@ -14,13 +26,27 @@ function handleFileSelect(event) {
         return;
     }
 
-    // 1. Identificazione del Tipo
+    // 1. Identificazione del Tipo, Dimensione ed Estensione
     document.getElementById('fileName').textContent = file.name;
-    document.getElementById('mimeType').textContent = file.type || 'Sconosciuto (tipo non fornito dal browser)';
+    document.getElementById('mimeType').textContent = file.type || 'Sconosciuto';
+
+    // Dimensione del file (file.size è in byte)
+    document.getElementById('fileSize').textContent = formatBytes(file.size);
+
+    // Estensione del file
+    // Cerca l'ultimo punto (.) nel nome del file
+    const lastDotIndex = file.name.lastIndexOf('.');
+    let extension = 'Nessuna estensione';
+    if (lastDotIndex !== -1 && lastDotIndex < file.name.length - 1) {
+        extension = file.name.substring(lastDotIndex + 1).toUpperCase();
+    }
+    document.getElementById('fileExtension').textContent = extension;
+
 
     // 2. Calcolo degli Hash
     calculateHashes(file);
 }
+
 
 // Funzione per convertire ArrayBuffer in stringa esadecimale (necessario per SubtleCrypto)
 function bufferToHex(buffer) {
