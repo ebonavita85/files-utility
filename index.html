@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizzatore di File (Hash & MIME)</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        input[type="file"] { margin-bottom: 20px; }
+        .result-box { border: 1px solid #ccc; padding: 15px; margin-top: 20px; background-color: #f9f9f9; }
+        .result-box h3 { margin-top: 0; }
+        .hash-result { word-break: break-all; margin-bottom: 10px; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+</head>
+<body>
+    <h1>Analisi Impronta File</h1>
+
+    <input type="file" id="fileInput">
+
+    <div class="result-box">
+        <h3>Risultati Analisi</h3>
+        <p><strong>Nome File:</strong> <span id="fileName">...</span></p>
+        <p><strong>MIME Type (Content Type):</strong> <span id="mimeType">...</span></p>
+        
+        <hr>
+
+        <h4>Impronte (Hash)</h4>
+        <div class="hash-result">
+            <strong>MD5:</strong> <span id="hashMd5">Calcolo...</span>
+        </div>
+        <div class="hash-result">
+            <strong>SHA-256:</strong> <span id="hashSha256">Calcolo...</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
