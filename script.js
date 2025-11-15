@@ -19,6 +19,7 @@ function handleFileSelect(event) {
     document.getElementById('mimeType').textContent = 'N/A';
     document.getElementById('fileSize').textContent = 'N/A'; // Reset Dimensione
     document.getElementById('fileExtension').textContent = 'N/A'; // Reset Estensione
+    document.getElementById('lastModified').textContent = 'N/A';
     document.getElementById('hashMd5').textContent = 'Calcolo...';
     document.getElementById('hashSha256').textContent = 'Calcolo...';
     
@@ -42,6 +43,13 @@ function handleFileSelect(event) {
     }
     document.getElementById('fileExtension').textContent = extension;
 
+    if (file.lastModifiedDate) {
+        // Usa toLocaleString() per formattare la data e l'ora in base alle impostazioni locali
+        const formattedDate = file.lastModifiedDate.toLocaleString();
+        document.getElementById('lastModified').textContent = formattedDate;
+    } else {
+        document.getElementById('lastModified').textContent = 'Non disponibile';
+    }
 
     // 2. Calcolo degli Hash
     calculateHashes(file);
