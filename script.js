@@ -10,6 +10,17 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
+async function getShaHash(algorithm, buffer, elementId) {
+    try {
+        const hashBuffer = await crypto.subtle.digest(algorithm, buffer);
+        const hash = bufferToHex(hashBuffer);
+        document.getElementById(elementId).textContent = hash;
+    } catch (error) {
+        document.getElementById(elementId).textContent = `Errore ${algorithm}: ${error.message}`;
+    }
+}
+
+
 // Funzione principale che si attiva al cambio del file
 function handleFileSelect(event) {
     const file = event.target.files[0];
