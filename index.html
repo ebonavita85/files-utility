@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 <body>
-    <h1>Analisi Impronta File</h1>
+    <h1>Analisi File</h1>
 
     <input type="file" id="fileInput">
 
@@ -32,6 +32,11 @@
         <div class="hash-result">
             <strong>SHA-256:</strong> <span id="hashSha256">Calcolo...</span>
         </div>
+
+        <p><strong>Dimensione:</strong> <span id="fileSize">...</span></p>
+        <p><strong>Estensione:</strong> <span id="fileExtension">...</span></p>
+        <hr>
+        
     </div>
 
     <script src="script.js"></script>
